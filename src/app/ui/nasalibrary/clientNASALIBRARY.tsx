@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
+import NavButton from "@/app/ui/NavButton";
 
 export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
   const [queryToSend, setQueryToSend] = useState("Galaxy");
@@ -66,7 +67,8 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
       setSelectedMedia(mediaUrl);
       setKeywords(mediaKeywords);
       setTitle(mediaTitle);
-      setDescription(mediaDescription);
+      setDescription(`Description : ${mediaDescription}`);
+
       setSelectedType(media_type);
       setSelectedVideo(videoUrl);
     };
@@ -124,48 +126,70 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
         setSelectedType(dataArray[0].media_type);
         setKeywords(dataArray[0].keywords);
         setTitle(dataArray[0].title);
-        setLoading(false); // Define o estado de carregamento como falso após receber a resposta
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Erro ao buscar dados do NASA LIBRARY:", error);
-        setLoading(false); // Define o estado de carregamento como falso em caso de erro também
+        setLoading(false);
       });
   }, []);
 
   return (
     <div className="w-screen flex-1 flex-row h-screen flex ">
+      <NavButton></NavButton>
       <div className="w-2/3 h-screen border-customGray border-2 border-solid border-t-0 border-l-0">
         <div className="w-full h-2/3 border-customGray border-2 border-solid border-x-0 border-b-0 ">
           <div className="max-w-full m-0 w-auto h-full max-h-full flex justify-center items-center">
-            {loading ? ( // Verifica se está carregando
+            {loading ? (
               <Skeleton
-                variant="rectangular"
-                width={210}
-                height={118}
+                variant="rounded"
+                width="70%"
+                height="70%"
                 sx={{ bgcolor: "grey.900" }}
-              /> // Renderiza o Skeleton se estiver carregando
+              />
             ) : (
-              renderMedia() // Renderiza a mídia normal se não estiver carregando
+              renderMedia()
             )}
           </div>
         </div>
         <div className="w-full h-1/3  border-customGray border-2 border-solid border-x-0 border-b-0 overflow-auto p-8">
-          <h1>Title: {title}</h1>
-          <h2>Description : {description}</h2>
-          <p>Keywords:</p>
-          <Skeleton
-            sx={{ bgcolor: "grey.900" }}
-            variant="rectangular"
-            width={210}
-            height={118}
-          />
-          <ul>
-            {keywords.map((keyword, index) => (
-              <li key={index}>
-                <a>{keyword}</a>
-              </li>
-            ))}
-          </ul>
+          {loading ? (
+            <div className="space-y-4 w-full h-full overflow-auto">
+              {" "}
+              <Skeleton
+                variant="rounded"
+                width="90%"
+                height="20%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="90%"
+                height="60%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="90%"
+                height="20%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+            </div>
+          ) : (
+            <>
+              <h1 className="text-2xl font-bold mb-4">{title}</h1>
+              <h2 className="text-xl font-bold mb-2">{description}</h2>
+              <p className="text-lg font-bold mb-1">Keywords:</p>
+
+              <ul>
+                {keywords.map((keyword, index) => (
+                  <li key={index}>
+                    <a className="text-blue-600 font-semibold">{keyword}</a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
       <div className="w-1/3 h-screen  border-customGray border-2 border-solid border-t-0 border-l-0">
@@ -186,8 +210,43 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
             </button>
           </form>
         </div>
-        <div className="border-customGray overflow-y-auto border-2 border-b-0 border-t-0 border-solid bg-black flex flex-row flex-nowrap justify-items-center h-full w-full border-r-0 mb-16 border-l-0 ">
-          {mediaSelection(Nasa)}
+        <div className="border-customGray overflow-y-auto border-2 border-b-0 border-t-0 border-solid bg-black flex flex-row flex-nowrap justify-center items-center h-full w-full border-r-0 mb-16 border-l-0 ">
+          {loading ? (
+            <div className="flex flex-wrap justify-center w-full h-full overflow-auto space-y-4">
+              <Skeleton
+                variant="rounded"
+                width="70%"
+                height="25%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="70%"
+                height="25%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="70%"
+                height="25%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="70%"
+                height="25%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="70%"
+                height="25%"
+                sx={{ bgcolor: "grey.900" }}
+              />
+            </div>
+          ) : (
+            mediaSelection(Nasa)
+          )}
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState, useEffect } from "react";
+import NavButton from "@/app/ui/NavButton";
 
 export default function ClientEPIC({ fetchEPIC, checkEPICLastAvailable }) {
   const theme = createTheme({
@@ -135,8 +136,9 @@ export default function ClientEPIC({ fetchEPIC, checkEPICLastAvailable }) {
 
   return (
     <div className="w-screen flex-1 flex-row h-screen flex ">
+      <NavButton></NavButton>
       <div className="w-2/3 h-screen flex flex-col  ">
-        <div className="max-w-full m-0 w-auto h-2/3 max-h-full flex justify-center items-center">
+        <div className="max-w-full m-0 w-auto h-2/3 max-h-full flex justify-center items-center  border-customGray border-2 border-b-0 border-r-0 border-l-0 border-solid">
           <img
             src={LinkImagem}
             alt="Descrição da imagem"
@@ -152,7 +154,7 @@ export default function ClientEPIC({ fetchEPIC, checkEPICLastAvailable }) {
 
       <div className="w-1/3 h-screen flex flex-col">
         <div className="overflow-hidden">
-          <div className="overflow-auto max-h-[400px] border-customGray border-2 border-t-0 border-solid">
+          <div className="overflow-auto max-h-[400px] border-customGray border-2 border-r-0 border-solid">
             <ThemeProvider theme={theme}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateCalendar
@@ -166,7 +168,7 @@ export default function ClientEPIC({ fetchEPIC, checkEPICLastAvailable }) {
           </div>
         </div>
 
-        <div className="bg-black h-1/2 mb-16 w-full overflow-auto border-customGray border-2 border-solid">
+        <div className="bg-black h-1/2 mb-16 w-full overflow-auto border-customGray border-2 border-solid border-r-0">
           <a className="text-sm text-white p-4 py-4 block ">
             <span className="mt-4 block">{imageCaption}</span>
             <span className="mt-4 block">

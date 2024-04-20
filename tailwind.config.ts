@@ -17,8 +17,7 @@ const config: Config = {
           'epicCard' : "url('/epicCard.jpg')",
           'insightCard' : "url('/insightCard.jpg')",
           'marsCard' : "url('/marsCard.jpg')",
-          'backgroundLarge1' : "url('/backgroundLarge1.jpg')",
-          'backgroundLarge3' : "url('/backgroundLarge3.jpg')",
+           'backgroundLarge2Nav': "url('/backgroundNav.jpg')",
           'backgroundLarge2' : "url('/backgroundLarge2.jpg')",
           'moonIcon' : "url('/moonIcon.png')",
           'videoButton' :"url('/videoButton0.png')"
