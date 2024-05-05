@@ -14,8 +14,11 @@ export  async function fetchAPOD(date) {
     const imagemLink = responseAPOD.data.url;
     const imagemText = responseAPOD.data.explanation;
     const imagemTitle = responseAPOD.data.title; 
+    const mediaType = responseAPOD.data.media_type;
+    const imagemData = responseAPOD.data;
+    console.log(imagemData)
   
-    return { imagemLink, imagemText, imagemTitle };
+    return { imagemLink, imagemText, imagemTitle, mediaType };
 
   } catch (error) {
 
@@ -59,7 +62,7 @@ export async function fetchNASALIBRARY(query) {
           "thumbnail": nasa.links[0].href,
           "link": link,
           "nasa_id": nasa.data[0].nasa_id,
-          "linkVideo" : link
+          "linkVideo" : linkVideo
         };
 
         dataArray.push(dataObj);
@@ -94,7 +97,7 @@ export  async function fetchEPIC(date) {
     };
     
     const imageDados = [];
-    const responseEPIC = await axios.get(`https://api.nasa.gov/EPIC/api/natural/date/${date}?`, { params });
+    const responseEPIC = await axios.get(`https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${params.api_key}`);
 
     
     responseEPIC.data.map((media) => {imageDados.push({imageName: media.image, 
@@ -107,6 +110,7 @@ export  async function fetchEPIC(date) {
       centroidLat : media.centroid_coordinates.lat,
       centroidLon : media.centroid_coordinates.lon,
       caption: media.caption,
+      date: media.date,
     })});
   
 

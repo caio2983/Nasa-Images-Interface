@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { fetchAPOD } from "./lib/data";
 import SelectionCard from "./ui/selection-card";
 
 export default async function Home() {

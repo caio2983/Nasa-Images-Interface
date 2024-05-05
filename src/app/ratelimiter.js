@@ -1,9 +1,9 @@
 import { RateLimiterFlex } from "rate-limiter-flexible";
-import redisClient from "./redis";
+import createRedisClient from "./redis";
 
 const maxRequestsPerMinute = 100;
 const rateLimiter = new RateLimiterFlex({
-  storeClient: redisClient,
+  storeClient: createRedisClient,
   keyPrefix: "rl:",
   points: maxRequestsPerMinute,
   duration: 60,

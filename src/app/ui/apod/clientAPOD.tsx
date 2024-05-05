@@ -27,13 +27,14 @@ export default function ClientAPOD({ fetchAPOD }) {
 
   useEffect(() => {
     const dateToday = dayjs(new Date()).format("YYYY-MM-DD");
-    console.log(dateToday);
 
     fetchAPOD(dateToday)
       .then((tentativa) => {
-        const { imagemLink, imagemText, imagemTitle } = tentativa;
+        const { imagemLink, imagemText, imagemTitle, mediaType } = tentativa;
         setLinkImagem(imagemLink);
         setTextImagem(imagemText);
+        setTitleImagem(imagemTitle);
+        setMediaType(mediaType);
         setLoading(false);
       })
       .catch((error) => {
@@ -48,6 +49,29 @@ export default function ClientAPOD({ fetchAPOD }) {
   const [TextImagem, setTextImagem] = useState(null);
   const [TitleImagem, setTitleImagem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [mediaType, setMediaType] = useState("");
+
+  const renderMedia = () => {
+    if (mediaType === "image") {
+      return (
+        <img
+          src={LinkImagem}
+          alt="Descrição da imagem"
+          className="rounded p-8 max-h-[90%] w-auto h-auto"
+        />
+      );
+    } else if (mediaType === "video") {
+      return (
+        <iframe
+          className="rounded p-8 max-h-[90%] w-auto h-auto"
+          src="https://www.youtube.com/embed/w5uUcq__vMo"
+          allowFullScreen
+        ></iframe>
+      );
+    } else {
+      return null;
+    }
+  };
 
   const handleDateChange = (selectedDate) => {
     setSelectedDate(selectedDate);
@@ -57,10 +81,11 @@ export default function ClientAPOD({ fetchAPOD }) {
 
     fetchAPOD(selectedDateFormatada)
       .then((tentativa) => {
-        const { imagemLink, imagemText, imagemTitle } = tentativa;
+        const { imagemLink, imagemText, imagemTitle, mediaType } = tentativa;
         setLinkImagem(imagemLink);
         setTextImagem(imagemText);
         setTitleImagem(`Title : ${imagemTitle} //`);
+        setMediaType(mediaType);
       })
       .catch((error) => {
         console.error("Erro ao buscar dados do APOD:", error);
@@ -81,11 +106,7 @@ export default function ClientAPOD({ fetchAPOD }) {
             />
           </div>
         ) : (
-          <img
-            src={LinkImagem}
-            alt="Imagem"
-            className="rounded p-8 max-h-[90%] w-auto h-auto "
-          />
+          renderMedia()
         )}
       </div>
       <div className="w-1/3 h-screen flex flex-col">

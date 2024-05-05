@@ -33,14 +33,15 @@ export default function NavButton() {
 
   return (
     <>
-      <div className="h-fit w-1/6 bg-black text-white flex flex-column items-center justify-center absolute top-0 left-0">
-        <h2 className="text-white w-full text-center text-l ">APIs</h2>
-        <div
-          className="bg-white h-full w-full justify-self-end hover:bg-black"
+      <div className="h-fit w-1/6 bg-black text-white flex flex-row items-center justify-center ml-0 absolute top-0 left-0">
+        <h2 className="text-white w-full text-center text-m ">APIs</h2>
+
+        <img
+          src="/arrowIcon.png"
+          alt="Arrow icon"
+          className="h-[4vh] w-auto justify-self-end "
           onClick={handleClick}
-        >
-          E
-        </div>
+        ></img>
       </div>
       <div
         className={`h-[30vh] w-0 absolute flex flex-col justify-normal bg-black border-customGray border-2 border-t-0 border-solid ${
@@ -100,8 +101,6 @@ export default function NavButton() {
             ></div>
           </div>
         </Link>
-
-        <div className="h-[10%] w-[5%] absolute bottom-0 bg-customGray  self-end"></div>
       </div>
     </>
   );

@@ -12,5 +12,5 @@ export type epicDef = {
 
 declare function RateLimitMiddleware(req: any, res: any, next: any): Promise<void>;
 
-// Exporte os tipos
+
 export { RateLimitMiddleware };

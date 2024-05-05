@@ -43,12 +43,19 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(queryToSend);
+
+    setLoading(true);
 
     fetchNASALIBRARY(queryToSend)
       .then((tentativa) => {
-        const { dataArray } = tentativa; // Fazer map aqui quando eu usar várias imagens / vídeos
+        const { dataArray } = tentativa;
         setNasa(dataArray);
+        setDescription(dataArray[0].description);
+        setSelectedMedia(dataArray[0].link);
+        setSelectedType(dataArray[0].media_type);
+        setKeywords(dataArray[0].keywords);
+        setTitle(dataArray[0].title);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Erro ao buscar dados do NASA LIBRARY:", error);
@@ -67,7 +74,7 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
       setSelectedMedia(mediaUrl);
       setKeywords(mediaKeywords);
       setTitle(mediaTitle);
-      setDescription(`Description : ${mediaDescription}`);
+      setDescription(mediaDescription);
 
       setSelectedType(media_type);
       setSelectedVideo(videoUrl);
@@ -177,27 +184,31 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
             </div>
           ) : (
             <>
-              <h1 className="text-2xl font-bold mb-4">{title}</h1>
-              <h2 className="text-xl font-bold mb-2">{description}</h2>
-              <p className="text-lg font-bold mb-1">Keywords:</p>
+              <h1 className="text-l  mb-4">{title}</h1>
+              <h2 className="text-sm mb-2">{description}</h2>
 
-              <ul>
-                {keywords.map((keyword, index) => (
-                  <li key={index}>
-                    <a className="text-blue-600 font-semibold">{keyword}</a>
-                  </li>
-                ))}
-              </ul>
+              {keywords !== undefined && (
+                <>
+                  <p className="text-sm mb-1">Keywords:</p>
+                  <ul>
+                    {keywords.map((keyword, index) => (
+                      <li key={index}>
+                        <a className="text-blue-600 font-semibold">{keyword}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </>
           )}
         </div>
       </div>
       <div className="w-1/3 h-screen  border-customGray border-2 border-solid border-t-0 border-l-0">
         <div className="w-full h-1/4 flex border-customGray border-2 border-solid border-t-0 border-l-0 border-r-0">
-          <form className="w-full  h-fit" onSubmit={handleSubmit}>
+          <form className="w-full  h-full" onSubmit={handleSubmit}>
             <input
               type="text"
-              className="w-full h-1/5 p-2  text-black"
+              className="w-full h-1/5 p-2 mb-0 text-black"
               placeholder="Digite aqui os parâmetros de busca..."
               value={queryToSend}
               onChange={handleInputChange}
@@ -206,8 +217,14 @@ export default function ClientNASALIBRARY({ fetchNASALIBRARY }) {
               type="submit"
               className="m-0 flex h-1/5 items-center text-sm"
             >
-              Enviar
+              <a className="bg-customGray ">Enviar</a>
             </button>
+            <div className="w-full h-1/2 color-customGray ">
+              Exemplos de keywords para busca:{" "}
+              <a className="text-blue-600 font-semibold">
+                Sky, Neptune, Solar System, Black Hole, Spacecraft , Supernova
+              </a>
+            </div>
           </form>
         </div>
         <div className="border-customGray overflow-y-auto border-2 border-b-0 border-t-0 border-solid bg-black flex flex-row flex-nowrap justify-center items-center h-full w-full border-r-0 mb-16 border-l-0 ">
